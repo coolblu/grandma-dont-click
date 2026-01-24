@@ -56,6 +56,7 @@ public class FirstPersonTouchInput : MonoBehaviour, IFirstPersonInputSource
     private Vector2 jumpFingerStartPos;
     private Canvas joystickCanvas;
     private RectTransform joystickRootParent;
+    private RectTransform joystickCanvasRoot;
 
     private void Awake()
     {
@@ -345,6 +346,7 @@ public class FirstPersonTouchInput : MonoBehaviour, IFirstPersonInputSource
         if (joystickRoot == null) return;
         joystickRootParent = joystickRoot.parent as RectTransform;
         joystickCanvas = joystickRoot.GetComponentInParent<Canvas>();
+        joystickCanvasRoot = joystickCanvas != null ? joystickCanvas.transform as RectTransform : null;
     }
 
     private void ShowJoystick(Vector2 screenPos)
@@ -354,19 +356,24 @@ public class FirstPersonTouchInput : MonoBehaviour, IFirstPersonInputSource
 
         if (joystickRootParent == null) joystickRootParent = joystickRoot.parent as RectTransform;
         if (joystickCanvas == null) joystickCanvas = joystickRoot.GetComponentInParent<Canvas>();
+        if (joystickCanvasRoot == null && joystickCanvas != null) joystickCanvasRoot = joystickCanvas.transform as RectTransform;
 
-        if (joystickRootParent != null)
+        RectTransform screenRoot = GetJoystickScreenRoot();
+        if (screenRoot != null)
         {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                joystickRootParent,
+            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
+                screenRoot,
                 screenPos,
                 GetJoystickCamera(),
-                out var localPoint
-            );
-            joystickRoot.anchoredPosition = localPoint;
+                out var worldPoint
+            ))
+            {
+                joystickRoot.position = worldPoint;
+            }
         }
 
         if (!joystickRoot.gameObject.activeSelf) joystickRoot.gameObject.SetActive(true);
+        joystickRoot.SetAsLastSibling();
         if (joystickHandle != null) joystickHandle.anchoredPosition = Vector2.zero;
     }
 
@@ -401,6 +408,12 @@ public class FirstPersonTouchInput : MonoBehaviour, IFirstPersonInputSource
         if (joystickRoot == null) return GetScaledMoveRadius();
         float radius = Mathf.Min(joystickRoot.rect.width, joystickRoot.rect.height) * 0.5f;
         return radius > 0f ? radius : GetScaledMoveRadius();
+    }
+
+    private RectTransform GetJoystickScreenRoot()
+    {
+        if (joystickCanvasRoot != null) return joystickCanvasRoot;
+        return joystickRootParent;
     }
 
     private Camera GetJoystickCamera()

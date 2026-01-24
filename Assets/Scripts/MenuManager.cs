@@ -10,4 +10,9 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
+
+    public void CreditButton()
+    {
+        SceneManager.LoadScene("Credits");
+    }
 }

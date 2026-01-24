@@ -97,11 +97,11 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(true);
     }
 
-    public void ReturnToTitle()
+     public void ReturnToTitle()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
-    }
+    } 
 
     public void QuitGame()
     {

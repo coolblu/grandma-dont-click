@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-4067005250706724315
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: be3944d26de81cd4481f6547fcf3b6ae
+  m_EffectName: Attenuation
+  m_MixLevel: 75965ff9be443bc47a39f0989888ab3a
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!241 &24100000
+AudioMixerController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MasterMixer
+  m_OutputGroup: {fileID: 0}
+  m_MasterGroup: {fileID: 24300002}
+  m_Snapshots:
+  - {fileID: 24500006}
+  m_StartSnapshot: {fileID: 24500006}
+  m_SuspendThreshold: -80
+  m_EnableSuspend: 1
+  m_UpdateMode: 0
+  m_ExposedParameters:
+  - guid: 1601da5c0ee07c048b7140849c68651e
+    name: MasterVolume
+  m_AudioMixerGroupViews:
+  - guids:
+    - 399322a5f7a3ff147b8fc496cfde0bec
+    - 2a7e102d4765dcd458bf8395ae4c2c01
+    - 3e86d6f010dc4d64fb3ba7ec8ee256a5
+    name: View
+  m_CurrentViewIndex: 0
+  m_TargetSnapshot: {fileID: 24500006}
+--- !u!243 &24300002
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Master
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 399322a5f7a3ff147b8fc496cfde0bec
+  m_Children:
+  - {fileID: 7407580250492617278}
+  - {fileID: 5689487776890199074}
+  m_Volume: 1601da5c0ee07c048b7140849c68651e
+  m_Pitch: 2ba6441bdaa9a1641bd536538f3411a6
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 24400004}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &24400004
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: cf94fd505cdbc404c9256f2673135661
+  m_EffectName: Attenuation
+  m_MixLevel: cdfeb893a76753b49952045fb27d6a9e
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!245 &24500006
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Snapshot
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 800a9160cba5ac84988d7f9c6a8c628a
+  m_FloatValues:
+    1601da5c0ee07c048b7140849c68651e: -10
+  m_TransitionOverrides: {}
+--- !u!243 &5689487776890199074
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Music
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 2a7e102d4765dcd458bf8395ae4c2c01
+  m_Children: []
+  m_Volume: c4c8079bbe807c043bfc55b4f07dc252
+  m_Pitch: fadf5e7e2c9049643817e939ee8b1fcf
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 6348678958467860176}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &6348678958467860176
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: d405ae98d4acf104dbfcf18c72e54c79
+  m_EffectName: Attenuation
+  m_MixLevel: 098971bd4b5ead94aa2217255123c41f
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &7407580250492617278
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SFX
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 3e86d6f010dc4d64fb3ba7ec8ee256a5
+  m_Children: []
+  m_Volume: 458a0894150d84443b554bc1bf7c58e7
+  m_Pitch: 13de123cb8621eb42a58a67ed2ab9a89
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -4067005250706724315}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0

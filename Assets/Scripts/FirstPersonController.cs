@@ -1,15 +1,15 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform cameraPivot;
-
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private PlayerInput playerInput;
+
+    [Header("Input")]
+    [SerializeField] private FirstPersonDesktopInput desktopInput;
+    [SerializeField] private FirstPersonTouchInput mobileInput;
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4.5f;
@@ -18,7 +18,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float gravity = -25f;
 
     [Header("Look")]
-    [SerializeField] private float mouseSensitivity = 0.12f;
     [SerializeField] private float maxPitch = 85f;
 
     [Header("Options")]
@@ -43,24 +42,21 @@ public class FirstPersonController : MonoBehaviour
     private float verticalVelocity;
     private float baseFov;
     private bool isSprinting;
-    private InputAction moveAction;
-    private InputAction lookAction;
-    private InputAction jumpAction;
-    private InputAction sprintAction;
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        CacheActions();
+        if (desktopInput == null) desktopInput = GetComponent<FirstPersonDesktopInput>();
+        if (mobileInput == null) mobileInput = GetComponent<FirstPersonTouchInput>();
 
-        ApplyCursorLock(lockCursor);
+        if (!IsUsingMobileInput()) ApplyCursorLock(lockCursor);
 
         if (playerCamera != null) baseFov = playerCamera.fieldOfView;
     }
 
     void OnApplicationFocus(bool hasFocus)
     {
-        if (!lockCursor) return;
+        if (!lockCursor || IsUsingMobileInput()) return;
         ApplyCursorLock(hasFocus);
     }
 
@@ -72,10 +68,36 @@ public class FirstPersonController : MonoBehaviour
         HandleSprintFeedback();
     }
 
+    private void UpdateInput()
+    {
+        var source = GetActiveInputSource();
+        if (source == null)
+        {
+            moveInput = Vector2.zero;
+            lookInput = Vector2.zero;
+            jumpPressed = false;
+            sprintHeld = false;
+            return;
+        }
+
+        FirstPersonInputFrame input = source.ReadInput();
+        moveInput = input.Move;
+        lookInput = input.Look;
+        jumpPressed = input.JumpPressed;
+        sprintHeld = input.SprintHeld;
+    }
+
+    private IFirstPersonInputSource GetActiveInputSource()
+    {
+        if (mobileInput != null && mobileInput.ShouldUse()) return mobileInput;
+        if (desktopInput != null) return desktopInput;
+        return null;
+    }
+
     private void HandleLook()
     {
-        yaw += lookInput.x * mouseSensitivity;
-        pitch -= lookInput.y * mouseSensitivity;
+        yaw += lookInput.x;
+        pitch -= lookInput.y;
         pitch = Mathf.Clamp(pitch, -maxPitch, maxPitch);
 
         transform.rotation = Quaternion.Euler(0f, yaw, 0f);
@@ -111,33 +133,16 @@ public class FirstPersonController : MonoBehaviour
 
     public bool IsSprinting => isSprinting;
 
-    private static void ApplyCursorLock(bool shouldLock)
+    private void ApplyCursorLock(bool shouldLock)
     {
         Cursor.lockState = shouldLock ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !shouldLock;
     }
 
-    private void UpdateInput()
+    private bool IsUsingMobileInput()
     {
-        if (moveAction == null || lookAction == null || jumpAction == null || sprintAction == null) CacheActions();
-
-        moveInput = moveAction != null ? moveAction.ReadValue<Vector2>() : Vector2.zero;
-        lookInput = lookAction != null ? lookAction.ReadValue<Vector2>() : Vector2.zero;
-        jumpPressed = jumpAction != null && jumpAction.WasPressedThisFrame();
-        sprintHeld = sprintAction != null && sprintAction.IsPressed();
-    }
-
-    private void CacheActions()
-    {
-        if (playerInput == null) playerInput = GetComponent<PlayerInput>();
-
-        if (playerInput == null || playerInput.actions == null) return;
-
-        var actions = playerInput.actions;
-        moveAction = actions.FindAction("Move", false);
-        lookAction = actions.FindAction("Look", false);
-        jumpAction = actions.FindAction("Jump", false);
-        sprintAction = actions.FindAction("Sprint", false);
+        if (Application.isMobilePlatform) return true;
+        return mobileInput != null && mobileInput.ShouldUse();
     }
 
     private void HandleSprintFeedback()

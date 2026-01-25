@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 886302935}
   - component: {fileID: 886302940}
   - component: {fileID: 886302939}
+  - component: {fileID: 886302941}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -465,6 +466,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FirstPersonDesktopInput
   playerInput: {fileID: 886302936}
   lookSensitivity: 0.12
+--- !u!114 &886302941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886302934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25276566c71e42c4da8d697ea26a3ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Interactor
+  playerCamera: {fileID: 1232606627}
+  rayOrigin: {fileID: 0}
+  playerInput: {fileID: 886302936}
+  interactActionName: Interact
+  usePointerPosition: 1
+  maxDistance: 3
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  triggerInteraction: 2
+  ignoreUI: 1
 --- !u!1 &907552617
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +797,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457867897}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1457867899
 Camera:
   m_ObjectHideFlags: 0

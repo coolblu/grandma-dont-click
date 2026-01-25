@@ -142,9 +142,23 @@ public class Interactor : MonoBehaviour
     {
         if (Pointer.current != null)
         {
-            return Pointer.current.position.ReadValue();
+            Vector2 position = Pointer.current.position.ReadValue();
+            if (IsFinite(position))
+            {
+                return position;
+            }
         }
 
         return new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+    }
+
+    private static bool IsFinite(Vector2 value)
+    {
+        return IsFinite(value.x) && IsFinite(value.y);
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

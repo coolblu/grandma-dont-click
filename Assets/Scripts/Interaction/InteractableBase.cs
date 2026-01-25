@@ -4,6 +4,7 @@ public abstract class InteractableBase : MonoBehaviour
 {
     [Header("Interaction")]
     [SerializeField] private string displayName = "Interact";
+    [SerializeField] private bool useCustomRange = false;
     [SerializeField] private float interactionRange = 2f;
     [SerializeField] private Transform interactionPoint;
 
@@ -23,7 +24,7 @@ public abstract class InteractableBase : MonoBehaviour
         if (!isActiveAndEnabled) return false;
         if (interactor == null) return false;
 
-        if (interactionRange > 0f)
+        if (useCustomRange && interactionRange > 0f)
         {
             float distance = Vector3.Distance(interactor.Origin, InteractionPoint.position);
             if (distance > interactionRange) return false;

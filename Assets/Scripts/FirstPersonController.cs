@@ -62,6 +62,7 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
+        EnforceCursorLock();
         UpdateInput();
         HandleLook();
         HandleMove();
@@ -137,6 +138,17 @@ public class FirstPersonController : MonoBehaviour
     {
         Cursor.lockState = shouldLock ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !shouldLock;
+    }
+
+    private void EnforceCursorLock()
+    {
+        if (!lockCursor || IsUsingMobileInput()) return;
+        if (!Application.isFocused) return;
+
+        if (Cursor.lockState != CursorLockMode.Locked || Cursor.visible)
+        {
+            ApplyCursorLock(true);
+        }
     }
 
     private bool IsUsingMobileInput()

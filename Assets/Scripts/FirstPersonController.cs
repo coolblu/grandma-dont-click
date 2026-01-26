@@ -52,6 +52,12 @@ public class FirstPersonController : MonoBehaviour
         if (!IsUsingMobileInput()) ApplyCursorLock(lockCursor);
 
         if (playerCamera != null) baseFov = playerCamera.fieldOfView;
+
+        yaw = transform.eulerAngles.y;
+        if (cameraPivot != null)
+        {
+            pitch = Mathf.DeltaAngle(0f, cameraPivot.localEulerAngles.x);
+        }
     }
 
     void OnApplicationFocus(bool hasFocus)

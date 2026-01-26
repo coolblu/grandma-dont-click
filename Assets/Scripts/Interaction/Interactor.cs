@@ -55,7 +55,10 @@ public class Interactor : MonoBehaviour
 
     private void OnDisable()
     {
-        if (currentTarget != null) currentTarget.OnFocusExit(this);
+        if (currentTarget != null)
+        {
+            currentTarget.OnFocusExit(this);
+        }
         currentTarget = null;
     }
 
@@ -78,9 +81,15 @@ public class Interactor : MonoBehaviour
         InteractableBase target = FindTarget();
         if (target == currentTarget) return;
 
-        if (currentTarget != null) currentTarget.OnFocusExit(this);
+        if (currentTarget != null)
+        {
+            currentTarget.OnFocusExit(this);
+        }
         currentTarget = target;
-        if (currentTarget != null) currentTarget.OnFocusEnter(this);
+        if (currentTarget != null)
+        {
+            currentTarget.OnFocusEnter(this);
+        }
     }
 
     private InteractableBase FindTarget()
@@ -94,6 +103,7 @@ public class Interactor : MonoBehaviour
 
         return hit.collider.GetComponentInParent<InteractableBase>();
     }
+
 
     private bool TryGetRay(out Ray ray)
     {

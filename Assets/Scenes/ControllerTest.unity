@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FirstPersonTouchInput
   playerInput: {fileID: 886302936}
   enableMobileInput: 1
-  forceMobileInEditor: 1
+  forceMobileInEditor: 0
   lookSensitivity: 0.12
   touchLookSensitivity: 0.08
   touchMoveRadius: 80

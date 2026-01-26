@@ -92,6 +92,10 @@ public class FirstPersonController : MonoBehaviour
         lookInput = input.Look;
         jumpPressed = input.JumpPressed;
         sprintHeld = input.SprintHeld;
+
+        if (!IsFinite(moveInput)) moveInput = Vector2.zero;
+        if (!IsFinite(lookInput)) lookInput = Vector2.zero;
+        if (!IsFinite(yaw) || !IsFinite(pitch)) ResetLookState();
     }
 
     private IFirstPersonInputSource GetActiveInputSource()
@@ -103,9 +107,21 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleLook()
     {
+        if (!IsFinite(lookInput))
+        {
+            ResetLookState();
+            return;
+        }
+
         yaw += lookInput.x;
         pitch -= lookInput.y;
         pitch = Mathf.Clamp(pitch, -maxPitch, maxPitch);
+
+        if (!IsFinite(yaw) || !IsFinite(pitch))
+        {
+            ResetLookState();
+            return;
+        }
 
         transform.rotation = Quaternion.Euler(0f, yaw, 0f);
         if (cameraPivot != null) cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
@@ -175,5 +191,28 @@ public class FirstPersonController : MonoBehaviour
             targetFov,
             fovLerpSpeed * Time.deltaTime
         );
+    }
+
+    private void ResetLookState()
+    {
+        yaw = transform.eulerAngles.y;
+        if (cameraPivot != null)
+        {
+            pitch = Mathf.DeltaAngle(0f, cameraPivot.localEulerAngles.x);
+        }
+        else
+        {
+            pitch = 0f;
+        }
+    }
+
+    private static bool IsFinite(Vector2 value)
+    {
+        return IsFinite(value.x) && IsFinite(value.y);
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

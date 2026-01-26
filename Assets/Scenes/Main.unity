@@ -243,13 +243,14 @@ MonoBehaviour:
   interactionRange: 2
   interactionPoint: {fileID: 0}
   enableFocusHighlight: 1
-  focusOutlineWidth: 1
+  focusHighlightMaterial: {fileID: 0}
+  focusOutlineWidth: 0.0836
   focusOutlineColor: {r: 1, g: 1, b: 1, a: 1}
   focusOutlineSoftness: 0.35
-  focusGlowWidth: 0.7
+  focusGlowWidth: 0.06
   focusGlowSoftness: 0.5
-  focusGlowIntensity: 5
-  focusGlowColor: {r: 1, g: 1, b: 1, a: 0.5}
+  focusGlowIntensity: 1
+  focusGlowColor: {r: 1, g: 1, b: 1, a: 0.6}
   focusRenderers: []
   keypadUI: {fileID: 89605226}
 --- !u!65 &254179815

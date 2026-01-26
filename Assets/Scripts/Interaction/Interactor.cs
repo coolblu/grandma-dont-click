@@ -57,7 +57,7 @@ public class Interactor : MonoBehaviour
     {
         if (currentTarget != null)
         {
-            currentTarget.OnFocusExit(this);
+            currentTarget.FocusExit(this);
         }
         currentTarget = null;
     }
@@ -83,12 +83,12 @@ public class Interactor : MonoBehaviour
 
         if (currentTarget != null)
         {
-            currentTarget.OnFocusExit(this);
+            currentTarget.FocusExit(this);
         }
         currentTarget = target;
         if (currentTarget != null)
         {
-            currentTarget.OnFocusEnter(this);
+            currentTarget.FocusEnter(this);
         }
     }
 

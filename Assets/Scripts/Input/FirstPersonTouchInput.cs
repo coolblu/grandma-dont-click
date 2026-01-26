@@ -19,7 +19,7 @@ public class FirstPersonTouchInput : MonoBehaviour, IFirstPersonInputSource
     [Header("Move")]
     [SerializeField] private float touchMoveRadius = 80f;
     [SerializeField] private float touchMoveDeadzone = 8f;
-    [SerializeField, Range(0.1f, 0.9f)] private float touchMoveArea = 0.5f;
+    [SerializeField, Range(0.1f, 0.9f)] private float touchMoveArea = 0.35f;
 
     [Header("Tap")]
     [SerializeField] private float touchTapMaxTime = 0.25f;

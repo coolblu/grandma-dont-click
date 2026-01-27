@@ -28,6 +28,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float sprintFov = 72f;
     [SerializeField] private float fovLerpSpeed = 12f;
 
+
     private CharacterController controller;
 
     // input vals
@@ -42,6 +43,25 @@ public class FirstPersonController : MonoBehaviour
     private float verticalVelocity;
     private float baseFov;
     private bool isSprinting;
+
+    public float MoveAmount
+    {
+        get
+        {
+            return moveInput.magnitude;
+        }
+    }
+
+
+    public bool IsGrounded
+    {
+        get
+        {
+            return controller != null && controller.isGrounded;
+        }
+    }
+
+
 
     void Awake()
     {

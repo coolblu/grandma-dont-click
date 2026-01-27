@@ -20,7 +20,7 @@ public class PhoneInteractable : InteractableBase
     {
         if (keypadUI != null) return keypadUI;
 
-        keypadUI = FindObjectOfType<PhoneKeypadUI>();
+        keypadUI = FindAnyObjectByType<PhoneKeypadUI>();;
         if (keypadUI != null) return keypadUI;
 
         PhoneKeypadUI[] all = Resources.FindObjectsOfTypeAll<PhoneKeypadUI>();

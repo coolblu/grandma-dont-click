@@ -6,7 +6,8 @@ using static PhoneKeypadUI;
 public class Office_Scene : MonoBehaviour
 {
     public AudioSource audio;
-    public AudioClip clip;
+    public AudioClip RingingClip;
+    public AudioClip ScamClip;
     public PhoneKeypadUI keypad;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,23 +17,32 @@ public class Office_Scene : MonoBehaviour
         StartCoroutine(ExecuteAfterTime(2.0f));
     }
 
+    void Update()
+    {
+        if (keypad.IsOpen && audio.clip == RingingClip)
+        {
+            audio.Stop();
+            StartCoroutine(ScamCall());
+        }
+    }
+
     IEnumerator ExecuteAfterTime(float delay)
     {
         // Wait for the specified number of seconds
         yield return new WaitForSeconds(delay);
 
         // Code here will execute after the delay
-        audio.clip = clip;
+        audio.clip = RingingClip;
         audio.loop = true;
         audio.Play();
     }
 
-    void Update()
+    IEnumerator ScamCall ()
     {
-        if (keypad.IsOpen)
-        {
-            audio.Stop();
-        }
+        yield return null;
+        audio.clip = ScamClip;
+        audio.loop = false;
+        audio.Play();
     }
 
 }

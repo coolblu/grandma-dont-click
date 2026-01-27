@@ -890,7 +890,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Office_Scene
   audio: {fileID: 564260748}
-  clip: {fileID: 8300000, guid: 38013f9312aea6444820c34630507462, type: 3}
+  RingingClip: {fileID: 8300000, guid: 38013f9312aea6444820c34630507462, type: 3}
+  ScamClip: {fileID: 8300000, guid: eedd422f99c9c6e468c20ad6d289df74, type: 3}
   keypad: {fileID: 89605226}
 --- !u!1 &590026660
 GameObject:

@@ -1537,6 +1537,7 @@ GameObject:
   - component: {fileID: 886302940}
   - component: {fileID: 886302939}
   - component: {fileID: 886302941}
+  - component: {fileID: 886302942}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1716,6 +1717,25 @@ MonoBehaviour:
     m_Bits: 4294967295
   triggerInteraction: 2
   ignoreUI: 1
+--- !u!114 &886302942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886302934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0d9525cf8c5e34f8a63ecd1165f85a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Office_Scene
+  audio: {fileID: 564260748}
+  RingingClip: {fileID: 8300000, guid: 38013f9312aea6444820c34630507462, type: 3}
+  ScamClip: {fileID: 8300000, guid: eedd422f99c9c6e468c20ad6d289df74, type: 3}
+  keypad: {fileID: 89605226}
+  controller: {fileID: 886302935}
+  footsteps: {fileID: 1657591153}
+  minSpeed: 0.1
 --- !u!1 &907552617
 GameObject:
   m_ObjectHideFlags: 0

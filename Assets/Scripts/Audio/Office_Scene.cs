@@ -46,8 +46,9 @@ public class Office_Scene : MonoBehaviour
     // -----------------------------
     void HandleFootsteps()
     {
-        float speed = (transform.position - lastPosition).magnitude / Time.deltaTime;
-        lastPosition = transform.position;
+        var p = controller.transform.position;
+        float speed = (p - lastPosition).magnitude / Time.deltaTime;
+        lastPosition = p;
 
         if (speed > minSpeed && controller.IsGrounded)
         {

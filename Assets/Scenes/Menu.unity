@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2226ec255096714da01cf588fd0253f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
-  audio: {fileID: 1339164389}
+  audioSource: {fileID: 1339164389}
 --- !u!1 &818131521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2226ec255096714da01cf588fd0253f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
-  audio: {fileID: 1339164389}
+  audioSource: {fileID: 1339164389}
 --- !u!1 &1803169414
 GameObject:
   m_ObjectHideFlags: 0

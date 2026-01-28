@@ -47,7 +47,7 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
 
     public bool IsOpen => isOpen;
     public string CurrentInput => currentInput;
-    public AudioSource audio;
+    public AudioSource audioSource;
     public AudioClip beep;
 
     private void Awake()
@@ -105,8 +105,8 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
     public void OnKeyPressed(string key)
     {
         if (string.IsNullOrEmpty(key)) return;
-        audio.clip = beep;
-        audio.Play();
+        audioSource.clip = beep;
+        audioSource.Play();
 
         if (MaxDigits > 0 && currentInput.Length >= MaxDigits) return;
         currentInput += key;

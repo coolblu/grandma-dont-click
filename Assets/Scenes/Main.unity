@@ -269,7 +269,7 @@ MonoBehaviour:
   interactor: {fileID: 886302941}
   touchInput: {fileID: 886302939}
   unlockCursor: 1
-  audio: {fileID: 976480867}
+  audioSource: {fileID: 0}
   beep: {fileID: 8300000, guid: b2beb8c1b24429b4cab19cb22adb4fc0, type: 3}
 --- !u!114 &89605227
 MonoBehaviour:
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0d9525cf8c5e34f8a63ecd1165f85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Office_Scene
-  audio: {fileID: 564260748}
+  audioSource: {fileID: 564260748}
   RingingClip: {fileID: 8300000, guid: 38013f9312aea6444820c34630507462, type: 3}
   ScamClip: {fileID: 8300000, guid: eedd422f99c9c6e468c20ad6d289df74, type: 3}
   keypad: {fileID: 89605226}
@@ -3831,7 +3831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0d9525cf8c5e34f8a63ecd1165f85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Office_Scene
-  audio: {fileID: 564260748}
+  audioSource: {fileID: 1657591153}
   RingingClip: {fileID: 8300000, guid: 38013f9312aea6444820c34630507462, type: 3}
   ScamClip: {fileID: 8300000, guid: eedd422f99c9c6e468c20ad6d289df74, type: 3}
   keypad: {fileID: 89605226}

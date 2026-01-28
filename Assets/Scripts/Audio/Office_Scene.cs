@@ -5,7 +5,7 @@ using static FirstPersonController;
 public class Office_Scene : MonoBehaviour
 {
     [Header("Scene Audio")]
-    public AudioSource audioSource;
+    public AudioSource audio;
     public AudioClip RingingClip;
     public AudioClip ScamClip;
     public PhoneKeypadUI keypad;
@@ -34,9 +34,9 @@ public class Office_Scene : MonoBehaviour
     // -----------------------------
     void HandlePhoneAudio()
     {
-        if (keypad.IsOpen && audioSource.clip == RingingClip)
+        if (keypad.IsOpen && audio.clip == RingingClip)
         {
-            audioSource.Stop();
+            audio.Stop();
             StartCoroutine(ScamCall());
         }
     }
@@ -69,17 +69,17 @@ public class Office_Scene : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        audioSource.clip = RingingClip;
-        audioSource.loop = true;
-        audioSource.Play();
+        audio.clip = RingingClip;
+        audio.loop = true;
+        audio.Play();
     }
 
     IEnumerator ScamCall()
     {
         yield return null;
 
-        audioSource.clip = ScamClip;
-        audioSource.loop = false;
-        audioSource.Play();
+        audio.clip = ScamClip;
+        audio.loop = false;
+        audio.Play();
     }
 }

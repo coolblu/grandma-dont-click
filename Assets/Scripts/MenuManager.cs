@@ -5,17 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    public AudioSource audioSource;
+    public AudioSource audio;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void PlayButton()
     {
-        audioSource.Play();
+        audio.Play();
         SceneManager.LoadScene("Main");
     }
 
     public void CreditButton()
     {
-        audioSource.Play();
+        audio.Play();
         SceneManager.LoadScene("Credits");
     }
 

@@ -43,10 +43,29 @@ public class FirstPersonController : MonoBehaviour
     private float verticalVelocity;
     private float baseFov;
     private bool isSprinting;
+<<<<<<< Updated upstream
     private InputAction moveAction;
     private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction sprintAction;
+=======
+
+    public float MoveAmount
+    {
+        get
+        {
+            return moveInput.magnitude;
+        }
+    }
+
+    public bool IsGrounded
+    {
+        get
+        {
+            return controller != null && controller.isGrounded;
+        }
+    }
+>>>>>>> Stashed changes
 
     void Awake()
     {
@@ -66,10 +85,21 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
+<<<<<<< Updated upstream
         UpdateInput();
         HandleLook();
         HandleMove();
         HandleSprintFeedback();
+=======
+        if (!GameManager.Instance.isPaused)
+        {
+            UpdateInput();
+            HandleLook();
+            HandleMove();
+            EnforceCursorLock();
+            HandleSprintFeedback();
+        }
+>>>>>>> Stashed changes
     }
 
     private void HandleLook()

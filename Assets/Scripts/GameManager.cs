@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settingsMenu;
 
-    private bool isPaused = false;
+    public bool isPaused { get; private set; }
     private bool inSettings = false;
 
     private void Awake()
@@ -57,6 +57,9 @@ public class GameManager : MonoBehaviour
 
         if (settingsMenu != null)
             settingsMenu.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ResumeGame()
@@ -70,6 +73,9 @@ public class GameManager : MonoBehaviour
 
         if (settingsMenu != null)
             settingsMenu.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void OpenSettings()
@@ -84,6 +90,9 @@ public class GameManager : MonoBehaviour
 
         if (settingsMenu != null)
             settingsMenu.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void CloseSettings()

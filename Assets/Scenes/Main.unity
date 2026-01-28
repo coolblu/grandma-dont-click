@@ -743,6 +743,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7076561576417419295, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 351226582}
+    - target: {fileID: 7076561576417419295, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSettings
+      objectReference: {fileID: 0}
     - target: {fileID: 7172915481005243430, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -756,43 +764,34 @@ PrefabInstance:
       value: Pause Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 8681896186266670532, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681896186266670532, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8681896186266670532, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3579941300199651236, guid: d1869fa635353394ba9049155221b690, type: 3}
+      objectReference: {fileID: 351226581}
     - target: {fileID: 8681896186266670532, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetResolution
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681896186266670532, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameSettings, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681896186266670532, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
---- !u!114 &572393044 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8681896186266670532, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
-  m_PrefabInstance: {fileID: 572393043}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_Dropdown
---- !u!1 &572393045 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3924909201579861172, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
-  m_PrefabInstance: {fileID: 572393043}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &572393046 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4530989511161785658, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
-  m_PrefabInstance: {fileID: 572393043}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &590026660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,7 +1141,7 @@ PrefabInstance:
     - target: {fileID: 3579941300199651236, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: resolutionDropdown
       value: 
-      objectReference: {fileID: 572393044}
+      objectReference: {fileID: 8681896185694278551}
     - target: {fileID: 5550629825342972745, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: m_Name
       value: Game Manager
@@ -1150,14 +1149,26 @@ PrefabInstance:
     - target: {fileID: 5697948188190606576, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: pauseMenu
       value: 
-      objectReference: {fileID: 572393046}
+      objectReference: {fileID: 4530989511732079465}
     - target: {fileID: 5697948188190606576, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: settingsMenu
       value: 
-      objectReference: {fileID: 572393045}
+      objectReference: {fileID: 3924909201008780007}
+    - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.49354
+      value: -5.4935303
       objectReference: {fileID: 0}
     - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1173,15 +1184,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7088482163834012358, guid: d1869fa635353394ba9049155221b690, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2986,6 +2997,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1998616288}
     - target: {fileID: 5483403589069989750, guid: efc8b77c6f70d6c4e996c70d73e5db7a, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 977493461}
+    - target: {fileID: 5483403589069989750, guid: efc8b77c6f70d6c4e996c70d73e5db7a, type: 3}
       propertyPath: firstPersonController
       value: 
       objectReference: {fileID: 1998616290}
@@ -3438,6 +3453,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3924909201008780007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3924909201579861172, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
+  m_PrefabInstance: {fileID: 572393043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4530989511732079465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4530989511161785658, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
+  m_PrefabInstance: {fileID: 572393043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8681896185694278551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8681896186266670532, guid: 05cd442faa52b184a87caa8fb1a17a17, type: 3}
+  m_PrefabInstance: {fileID: 572393043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_Dropdown
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3474,5 +3510,5 @@ SceneRoots:
   - {fileID: 1870242768}
   - {fileID: 986359567}
   - {fileID: 289666668}
-  - {fileID: 820186017}
   - {fileID: 572393043}
+  - {fileID: 820186017}

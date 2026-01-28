@@ -16,5 +16,5 @@ MonoBehaviour:
   crawlText: "LOSE\r\nGrandma rushed over in a panic and called them back. \r\n\r\nShe
     told them her account information hoping to resolve the issue but ended up with
     many more suspicious charges on her account.\r\n\r\nGrandma Got Scammed!"
-  crawlDuration: 16
+  crawlDuration: 12
   angledCrawl: 1

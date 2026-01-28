@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TextCrawl : MonoBehaviour
 {
@@ -7,14 +8,15 @@ public class TextCrawl : MonoBehaviour
     public float Duration = 16f;
     public bool Angled = true;
 
-    [Header("Anchored positions")]
     public Vector2 startPos = new Vector2(0, -650);
     public Vector2 endPos = new Vector2(0, 950);
 
-    [Header("Angle + scale (Star Wars-ish)")]
     public Vector3 angledRotation = new Vector3(55f, 0f, 0f);
     public float startScale = 1.15f;
     public float endScale = 0.65f;
+
+    public UnityEvent onFinished;
+    public bool IsFinished { get; private set; }
 
     private float t;
 
@@ -26,6 +28,8 @@ public class TextCrawl : MonoBehaviour
     public void Restart()
     {
         t = 0f;
+        IsFinished = false;
+
         if (textRect == null) textRect = transform as RectTransform;
 
         textRect.anchoredPosition = startPos;
@@ -45,6 +49,11 @@ public class TextCrawl : MonoBehaviour
         textRect.anchoredPosition = Vector2.Lerp(startPos, endPos, p);
         textRect.localScale = Vector3.one * Mathf.Lerp(startScale, endScale, p);
 
-        if (p >= 1f) enabled = false;
+        if (p >= 1f && !IsFinished)
+        {
+            IsFinished = true;
+            onFinished?.Invoke();
+            enabled = false;
+        }
     }
 }

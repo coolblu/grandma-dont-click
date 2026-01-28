@@ -36,6 +36,13 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
     private const float DisplayFontSize = 42f;
     private const float CloseLabelFontSize = 36f;
 
+    [Header("Dialing")]
+    [SerializeField] private bool autoSubmitByLength = true;
+    [SerializeField] private int submitLengthIfStartsWith1 = 11;
+    [SerializeField] private int submitLengthOtherwise = 10;
+    [SerializeField] private bool lockInputAfterSubmit = true;
+
+    private bool inputLocked;
     private KeypadHotspot[] hotspots = Array.Empty<KeypadHotspot>();
     private bool isOpen;
     private bool controllerWasEnabled;
@@ -70,6 +77,7 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
         SetPanelActive(true);
         ApplyOpenState();
         ClearInput();
+        inputLocked = false;
     }
 
     public void Close()
@@ -105,12 +113,21 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
     public void OnKeyPressed(string key)
     {
         if (string.IsNullOrEmpty(key)) return;
-        audioSource.clip = beep;
-        audioSource.Play();
+        if (inputLocked) return;
+
+        if (audioSource != null && beep != null)
+            audioSource.PlayOneShot(beep);
 
         if (MaxDigits > 0 && currentInput.Length >= MaxDigits) return;
+
         currentInput += key;
         UpdateDisplay();
+
+        if (autoSubmitByLength && ShouldAutoSubmitNow())
+        {
+            Submit();
+            if (lockInputAfterSubmit) inputLocked = true;
+        }
     }
 
     public void ClearInput()
@@ -122,6 +139,17 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
     private void Submit()
     {
         if (onSubmit != null) onSubmit.Invoke(currentInput);
+    }
+
+    private bool ShouldAutoSubmitNow()
+    {
+        int len = currentInput.Length;
+        if (len <= 0) return false;
+
+        if (currentInput[0] == '1')
+            return len >= submitLengthIfStartsWith1;
+
+        return len >= submitLengthOtherwise;
     }
 
     private void EnsureCloseButton()

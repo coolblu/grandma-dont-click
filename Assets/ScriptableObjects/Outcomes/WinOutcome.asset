@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: WinOutcome
   m_EditorClassIdentifier: Assembly-CSharp::OutcomeDefinition
   background: {fileID: 21300000, guid: 66c08fa48a1f64645821bf6b828f7c82, type: 3}
-  crawlText: 
-  crawlDuration: 16
+  crawlText: "WIN\r\nThe bank assured you that there was no suspicious activity on
+    grandma\u2019s account. The number that called you has been a scam. \r\n\r\nAndrew
+    asked for your number to more easily keep him updated on grandma\u2019s cyber
+    security: a strange ask that you humored.\r\n\r\nThe first text he sent was about
+    a suspicious charge, but it was one that grandma had told him over and over was
+    her \u201Cspending her money as she pleased.\u201D\r\n\r\n\u201CFor my personal
+    curiosity, could you find out who \u2018Rufus\u2019 is and why Grandma sends
+    him so much money?\r\n\r\nGrandma Is Safe!\r\nFor now"
+  crawlDuration: 18
   angledCrawl: 1

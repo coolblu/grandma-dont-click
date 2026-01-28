@@ -88,11 +88,14 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
-        EnforceCursorLock();
-        UpdateInput();
-        HandleLook();
-        HandleMove();
-        HandleSprintFeedback();
+        if (!GameManager.Instance.isPaused)
+        {
+            EnforceCursorLock();
+            UpdateInput();
+            HandleLook();
+            HandleMove();
+            HandleSprintFeedback();
+        }
     }
 
     private void UpdateInput()

@@ -47,7 +47,7 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
 
     public bool IsOpen => isOpen;
     public string CurrentInput => currentInput;
-    public AudioSource audio;
+    public AudioSource audioSource;
     public AudioClip beep;
 
     private void Awake()
@@ -105,8 +105,8 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
     public void OnKeyPressed(string key)
     {
         if (string.IsNullOrEmpty(key)) return;
-        audio.clip = beep;
-        audio.Play();
+        audioSource.clip = beep;
+        audioSource.Play();
 
         if (MaxDigits > 0 && currentInput.Length >= MaxDigits) return;
         currentInput += key;
@@ -252,7 +252,7 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
         if (text == null) return;
 
         text.alignment = TextAlignmentOptions.Center;
-        text.enableWordWrapping = false;
+        text.textWrappingMode = TMPro.TextWrappingModes.NoWrap;
         text.overflowMode = TextOverflowModes.Overflow;
         text.enableAutoSizing = true;
         text.fontSizeMin = 18f;
@@ -349,9 +349,9 @@ public class PhoneKeypadUI : MonoBehaviour, IPointerClickHandler
 
     private void EnsureReferences()
     {
-        if (firstPersonController == null) firstPersonController = FindObjectOfType<FirstPersonController>();
-        if (interactor == null) interactor = FindObjectOfType<Interactor>();
-        if (touchInput == null) touchInput = FindObjectOfType<FirstPersonTouchInput>();
+        if (firstPersonController == null) firstPersonController = FindAnyObjectByType<FirstPersonController>();;
+        if (interactor == null) interactor = FindAnyObjectByType<Interactor>();
+        if (touchInput == null) touchInput = FindAnyObjectByType<FirstPersonTouchInput>();
     }
 
     private void CacheState()

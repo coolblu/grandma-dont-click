@@ -1,15 +1,15 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform cameraPivot;
-
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private PlayerInput playerInput;
+
+    [Header("Input")]
+    [SerializeField] private FirstPersonDesktopInput desktopInput;
+    [SerializeField] private FirstPersonTouchInput mobileInput;
 
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 4.5f;
@@ -18,7 +18,6 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float gravity = -25f;
 
     [Header("Look")]
-    [SerializeField] private float mouseSensitivity = 0.12f;
     [SerializeField] private float maxPitch = 85f;
 
     [Header("Options")]
@@ -28,6 +27,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private bool useSprintFov = true;
     [SerializeField] private float sprintFov = 72f;
     [SerializeField] private float fovLerpSpeed = 12f;
+
 
     private CharacterController controller;
 
@@ -43,40 +43,105 @@ public class FirstPersonController : MonoBehaviour
     private float verticalVelocity;
     private float baseFov;
     private bool isSprinting;
-    private InputAction moveAction;
-    private InputAction lookAction;
-    private InputAction jumpAction;
-    private InputAction sprintAction;
+
+    public float MoveAmount
+    {
+        get
+        {
+            return moveInput.magnitude;
+        }
+    }
+
+
+    public bool IsGrounded
+    {
+        get
+        {
+            return controller != null && controller.isGrounded;
+        }
+    }
+
+
 
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        CacheActions();
+        if (desktopInput == null) desktopInput = GetComponent<FirstPersonDesktopInput>();
+        if (mobileInput == null) mobileInput = GetComponent<FirstPersonTouchInput>();
 
-        ApplyCursorLock(lockCursor);
+        if (!IsUsingMobileInput()) ApplyCursorLock(lockCursor);
 
         if (playerCamera != null) baseFov = playerCamera.fieldOfView;
+
+        yaw = transform.eulerAngles.y;
+        if (cameraPivot != null)
+        {
+            pitch = Mathf.DeltaAngle(0f, cameraPivot.localEulerAngles.x);
+        }
     }
 
     void OnApplicationFocus(bool hasFocus)
     {
-        if (!lockCursor) return;
+        if (!lockCursor || IsUsingMobileInput()) return;
         ApplyCursorLock(hasFocus);
     }
 
     void Update()
     {
+        EnforceCursorLock();
         UpdateInput();
         HandleLook();
         HandleMove();
         HandleSprintFeedback();
     }
 
+    private void UpdateInput()
+    {
+        var source = GetActiveInputSource();
+        if (source == null)
+        {
+            moveInput = Vector2.zero;
+            lookInput = Vector2.zero;
+            jumpPressed = false;
+            sprintHeld = false;
+            return;
+        }
+
+        FirstPersonInputFrame input = source.ReadInput();
+        moveInput = input.Move;
+        lookInput = input.Look;
+        jumpPressed = input.JumpPressed;
+        sprintHeld = input.SprintHeld;
+
+        if (!IsFinite(moveInput)) moveInput = Vector2.zero;
+        if (!IsFinite(lookInput)) lookInput = Vector2.zero;
+        if (!IsFinite(yaw) || !IsFinite(pitch)) ResetLookState();
+    }
+
+    private IFirstPersonInputSource GetActiveInputSource()
+    {
+        if (mobileInput != null && mobileInput.ShouldUse()) return mobileInput;
+        if (desktopInput != null) return desktopInput;
+        return null;
+    }
+
     private void HandleLook()
     {
-        yaw += lookInput.x * mouseSensitivity;
-        pitch -= lookInput.y * mouseSensitivity;
+        if (!IsFinite(lookInput))
+        {
+            ResetLookState();
+            return;
+        }
+
+        yaw += lookInput.x;
+        pitch -= lookInput.y;
         pitch = Mathf.Clamp(pitch, -maxPitch, maxPitch);
+
+        if (!IsFinite(yaw) || !IsFinite(pitch))
+        {
+            ResetLookState();
+            return;
+        }
 
         transform.rotation = Quaternion.Euler(0f, yaw, 0f);
         if (cameraPivot != null) cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
@@ -111,33 +176,27 @@ public class FirstPersonController : MonoBehaviour
 
     public bool IsSprinting => isSprinting;
 
-    private static void ApplyCursorLock(bool shouldLock)
+    private void ApplyCursorLock(bool shouldLock)
     {
         Cursor.lockState = shouldLock ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !shouldLock;
     }
 
-    private void UpdateInput()
+    private void EnforceCursorLock()
     {
-        if (moveAction == null || lookAction == null || jumpAction == null || sprintAction == null) CacheActions();
+        if (!lockCursor || IsUsingMobileInput()) return;
+        if (!Application.isFocused) return;
 
-        moveInput = moveAction != null ? moveAction.ReadValue<Vector2>() : Vector2.zero;
-        lookInput = lookAction != null ? lookAction.ReadValue<Vector2>() : Vector2.zero;
-        jumpPressed = jumpAction != null && jumpAction.WasPressedThisFrame();
-        sprintHeld = sprintAction != null && sprintAction.IsPressed();
+        if (Cursor.lockState != CursorLockMode.Locked || Cursor.visible)
+        {
+            ApplyCursorLock(true);
+        }
     }
 
-    private void CacheActions()
+    private bool IsUsingMobileInput()
     {
-        if (playerInput == null) playerInput = GetComponent<PlayerInput>();
-
-        if (playerInput == null || playerInput.actions == null) return;
-
-        var actions = playerInput.actions;
-        moveAction = actions.FindAction("Move", false);
-        lookAction = actions.FindAction("Look", false);
-        jumpAction = actions.FindAction("Jump", false);
-        sprintAction = actions.FindAction("Sprint", false);
+        if (Application.isMobilePlatform) return true;
+        return mobileInput != null && mobileInput.ShouldUse();
     }
 
     private void HandleSprintFeedback()
@@ -152,5 +211,28 @@ public class FirstPersonController : MonoBehaviour
             targetFov,
             fovLerpSpeed * Time.deltaTime
         );
+    }
+
+    private void ResetLookState()
+    {
+        yaw = transform.eulerAngles.y;
+        if (cameraPivot != null)
+        {
+            pitch = Mathf.DeltaAngle(0f, cameraPivot.localEulerAngles.x);
+        }
+        else
+        {
+            pitch = 0f;
+        }
+    }
+
+    private static bool IsFinite(Vector2 value)
+    {
+        return IsFinite(value.x) && IsFinite(value.y);
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }
